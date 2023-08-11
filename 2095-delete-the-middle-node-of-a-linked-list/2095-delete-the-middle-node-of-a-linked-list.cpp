@@ -8,7 +8,7 @@
  *     ListNode(int x, ListNode *next) : val(x), next(next) {}
  * };
  */
-int getLength(ListNode* head){
+/*int getLength(ListNode* head){
     ListNode* temp= head;
     int len=0;
     while(temp != NULL)
@@ -36,18 +36,28 @@ ListNode* deleteNode(ListNode* head, int position)
     
     return head;
 }
-
+*/
 class Solution {
 public:
     ListNode* deleteMiddle(ListNode* head) {
 
-        int len = getLength(head);
-        int ans = (len/2)+1;
-        
-        if(ans <= 1)
+        if(head->next == NULL)
             return NULL;
+        ListNode* slow= head;
+        ListNode* fast= head->next;
+        ListNode*prev = NULL;
         
-        deleteNode(head,ans);
+        while(fast != NULL)
+        {
+            fast = fast->next;
+            if(fast != NULL)
+            {
+                fast = fast->next;
+            }
+            prev = slow;
+            slow = slow->next;
+         }
+        prev->next = slow->next;
         return head;
     }
 };
