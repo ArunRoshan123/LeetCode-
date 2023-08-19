@@ -6,8 +6,9 @@
  *     ListNode(int x) : val(x), next(NULL) {}
  * };
  */
-class Solution {
-public:
+/* 
+    floyd cycle detection 
+    
     bool hasCycle(ListNode *head) {
         if(head == NULL){
             return false;
@@ -23,6 +24,23 @@ public:
             
             if(fast == slow)
                 return true;
+        }
+        return false;
+    }*/
+class Solution {
+public:
+    bool hasCycle(ListNode *head) {
+        ListNode* temp = head;
+        map<ListNode*, bool> visited;
+        
+        while(temp != NULL)
+        {
+            if(visited[temp] == true)
+            {
+                return true;
+            }
+            visited[temp] = true;
+            temp = temp->next;
         }
         return false;
     }   
