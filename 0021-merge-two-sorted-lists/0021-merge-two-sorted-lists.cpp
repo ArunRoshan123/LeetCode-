@@ -1,62 +1,33 @@
-ListNode* merge(ListNode* list1, ListNode* list2)
-{
-    if(list1->next == NULL)
-    {
-        list1->next =list2;
-        return list1;
-    }
-    ListNode* curr1 = list1;
-    ListNode* next1 = curr1->next;
-    ListNode* curr2 = list2;
-    ListNode* next2 = curr2->next;
-    
-    while(next1 != NULL && curr2 != NULL)
-    {
-        if(curr2->val >= curr1->val && curr2->val <= next1->val)
-        {
-            curr1->next = curr2;
-            next2 = curr2->next; 
-            curr2->next = next1;
-            curr1 = curr2;
-            curr2 = next2;   
-        }
-        else
-        {
-            curr1 = next1;
-            next1 = next1->next;
-            
-            if(next1 == NULL)
-            {
-                curr1->next = curr2;
-                return list1;
-            }
-        }
-    }
-    return list1;
-}
-
 class Solution {
 public:
     ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
-        if(list1 == NULL)
-        {
-            return list2;
-        }
-        else if(list2 == NULL)
-        {
-            return list1;
-        }
-        else if(list1 == NULL && list2 == NULL)
-        {
-            return list1;
-        }
         
-        if(list1->val <= list2->val)
+        ListNode* A = list1;
+        ListNode* B = list2;
+        ListNode* dummy = new ListNode(-1);
+        ListNode* D = dummy;
+        
+        while(A != NULL and B!= NULL)
         {
-             return merge(list1,list2);
+            if(A->val <= B->val)
+            {
+                D->next = A;
+                A = A->next;
+            }
+            else{
+                D->next = B;
+                B = B->next;
+            }
+            D = D->next;
         }
-        else{
-             return merge(list2,list1);
+        if(A == NULL)
+        {
+            D->next = B;
         }
+        else
+        {
+            D->next = A;
+        }
+       return dummy->next;
     }
 };
