@@ -10,32 +10,56 @@
  */
 class Solution {
 public:
-    bool check(vector<int> arr)
+    ListNode* getMiddle(ListNode* head)
     {
-        int n = arr.size();
-        int s = 0;
-        int e = n-1;
+        ListNode* slow = head;
+        ListNode* fast = slow->next;
         
-        while(s<=e)
+        while(fast!= NULL and fast->next != NULL)
         {
-            if(arr[s] != arr[e])
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+        return slow;
+    }
+    ListNode* getReverse(ListNode* head)
+    {
+        ListNode* prev = NULL;
+
+        while(head!= NULL)
+        {
+            ListNode* forward = head->next;
+            head->next = prev;
+            prev = head;
+            head = forward;   
+        }
+        return prev;
+    }
+    bool isPalindrome(ListNode* head) {
+        if(head->next ==NULL )
+        {
+            return true;
+        }
+        
+        ListNode* middle = getMiddle(head);
+        
+        ListNode* reverse = getReverse(middle->next);
+        middle->next= reverse;
+        
+        ListNode* head1 = head;
+        ListNode* head2 = middle->next;
+        
+        while(head2 != NULL)
+        {
+            if(head1->val != head2->val)
             {
                 return false;
             }
-            s++;
-            e--;
+            head1 = head1->next;
+            head2 = head2->next;
         }
+        reverse = getReverse(middle->next);
+        middle->next= reverse;
         return true;
-    }
-    bool isPalindrome(ListNode* head) {
-        vector<int> arr;
-        
-        ListNode* temp= head;
-        while(temp!= NULL)
-        {
-            arr.push_back(temp->val);
-            temp = temp->next;
-        }
-        return check(arr);
     }
 };
