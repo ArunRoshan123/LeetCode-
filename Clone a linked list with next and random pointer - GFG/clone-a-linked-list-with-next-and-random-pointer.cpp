@@ -21,53 +21,68 @@ struct Node {
 class Solution
 {
     public:
-    void insertAtTail(Node* &head,Node* &tail,int d)
-    {
-        Node* newNode = new Node(d);
-        if(head == NULL)
-        {
-            head= newNode;
-            tail= newNode;
-            return;
-        }
-        else{
-            tail->next = newNode;
-            tail = newNode;
-        }
-    }
     Node *copyList(Node *head)
     {
         //Write your code here
-        Node* clounHead= NULL;
-        Node* clounTail= NULL;
-        Node* temp = head;
+        Node* clounHead = NULL;
+        Node* clounTail = NULL;
+        Node* temp =head;
         
         while(temp != NULL)
         {
-            insertAtTail(clounHead,clounTail,temp->data);
-            temp=temp->next;
+            Node* newNode = new Node(temp->data);
+            if(clounHead == NULL)
+            {
+                clounHead =newNode;
+                clounTail =newNode; 
+            }
+            else
+            {
+                clounTail->next = newNode;
+                clounTail =newNode; 
+            }
+            temp = temp->next;
         }
-        
-        unordered_map<Node*,Node*> mapping;
         
         Node* originalNode = head;
         Node* clounNode = clounHead;
         
         while(originalNode != NULL && clounNode != NULL)
         {
-            mapping[originalNode] = clounNode;
-            originalNode= originalNode->next;
-            clounNode= clounNode->next;
+            Node* next = originalNode->next;
+            originalNode->next = clounNode;
+            originalNode = next;
+            
+            next = clounNode->next;
+            clounNode->next = originalNode;
+            clounNode = next;
+        }
+        
+        temp = head;
+
+        while(temp != NULL)
+        {
+            if(temp->next != NULL) 
+            {
+                temp->next->arb = temp->arb
+                ? temp->arb ->next : temp->arb;
+            }
+            temp = temp->next->next;
         }
         
         originalNode = head;
         clounNode = clounHead;
         
-        while(originalNode != NULL)
+        while(originalNode != NULL && clounNode != NULL)
         {
-            clounNode->arb = mapping[originalNode->arb];
-            originalNode= originalNode->next;
-            clounNode= clounNode->next;
+            originalNode->next = clounNode->next;
+            originalNode = originalNode->next;
+            
+            if(originalNode != NULL)
+            {
+            clounNode->next = originalNode->next;
+            }
+            clounNode = clounNode->next; 
         }
         return clounHead;
     }
