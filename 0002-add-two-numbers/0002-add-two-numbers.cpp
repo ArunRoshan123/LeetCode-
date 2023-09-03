@@ -1,17 +1,5 @@
 class Solution {
-  ListNode* reverse(ListNode* head)
-  {
-      ListNode* prev = NULL;
-      
-      while(head != NULL)
-      {
-         ListNode* forward = head->next;
-         head->next = prev;
-         prev = head;
-         head = forward;
-      }
-      return prev;
-  }
+
   void insertAtTail(ListNode* &head, ListNode* &tail, int digit)
   {
     ListNode* newNode = new ListNode(digit);
