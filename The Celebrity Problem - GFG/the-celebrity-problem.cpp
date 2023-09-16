@@ -25,9 +25,7 @@ class Solution
         stack<int> s;
         
         for(int i=0;i<n;i++)
-        {
             s.push(i);
-        }
         
         while(s.size() > 1)
         {
@@ -38,12 +36,9 @@ class Solution
             s.pop();
             
             if(knows(M,a,b))
-            {
                 s.push(b);
-            }
-            else{
+            else
                 s.push(a);
-            }
         }
         int candidate = s.top();
         
@@ -57,9 +52,7 @@ class Solution
         }
         
         if(rowzeroCheck == n)
-        {
             rowCheck = true;
-        }
         
         bool colCheck = false;
         int coloneCheck = 0;
@@ -71,18 +64,14 @@ class Solution
         }
         
         if(coloneCheck == n-1)
-        {
             colCheck = true;
-        }
         
         
         if(rowCheck == true && colCheck == true)
-        {
             return candidate;
-        }
-        else{
+        
+        else
             return -1;
-        }
     }
 };
 
