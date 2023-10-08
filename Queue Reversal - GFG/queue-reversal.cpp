@@ -17,16 +17,27 @@ class Solution
         {
             return;
         }
-        
-        int element = q.front();
+        int rev = q.front();
         q.pop();
         
         solve(q);
         
-        q.push(element);
+        q.push(rev);
     }
     queue<int> rev(queue<int> q)
     {
+        // stack<int>s;
+        // while(!q.empty())
+        // {
+        //     s.push(q.front());
+        //     q.pop();
+        // }
+        
+        // while(!s.empty())
+        // {
+        //     q.push(s.top());
+        //     s.pop();
+        // }
         solve(q);
         
         return q;
